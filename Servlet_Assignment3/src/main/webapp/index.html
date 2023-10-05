@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #3d4c6d;
+    }
+
+    .login-container {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 430px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #4c729e;
+        color: #fff;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: #5a6979;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+</style>
+</head>
+<body>
+<div class="login-container">
+    <h2 data-i18n="formTitle">Login</h2>
+    <form id="login-form" action="LoginServlet">
+        <div class="form-group">
+            <label for="username" data-i18n="emailLabel">E-mail</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password" data-i18n="passwordLabel">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <p data-i18n="forgotPasswordText">Forgot your password? <a href="resetpassword.html" style="text-decoration: none; color: #2e67a8;" data-i18n="forgotPasswordLink">Forgot Password</a></p>
+        <div class="form-group">
+            <label for="languageSelect" data-i18n="languageLabel">Select Language:</label>
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="english">English</option>
+                <option value="french">French</option>
+                <option value="kinyarwanda">Kinyarwanda</option>
+            </select>
+        </div>
+        <button type="submit" value="login" data-i18n="submitButtonText">Login</button>
+        <p data-i18n="noAccountText">Don't have an account? <a href="signup.html" style="text-decoration:none; color: #2e67a8;" data-i18n="signupLinkText">Sign Up</a></p>
+    </form>
+
+    <div id="welcome-message" style="display: none;">
+        <p data-i18n="welcomeMessage">Welcome, <span id="username-placeholder"></span>!</p>
+    </div>
+</div>
+
+<script>
+    function changeLanguage() {
+        const selectedLanguage = document.getElementById("languageSelect").value;
+        const translations = {
+            english: {
+                formTitle: "Login",
+                emailLabel: "E-mail",
+                passwordLabel: "Password",
+                submitButtonText: "Login",
+                languageLabel: "Select Language",
+                forgotPasswordText: "Forgot your password? ",
+                forgotPasswordLink: "Forgot Password",
+                noAccountText: "Don't have an account? ",
+                signupLinkText: "Sign Up",
+                welcomeMessage: "Welcome, ",
+            },
+            french: {
+                formTitle: "Connexion",
+                emailLabel: "Adresse électronique",
+                passwordLabel: "Mot de passe",
+                submitButtonText: "Connexion",
+                languageLabel: "Sélectionnez la langue",
+                forgotPasswordText: "Mot de passe oublié ? ",
+                forgotPasswordLink: "Mot de passe oublié",
+                noAccountText: "Vous n'avez pas de compte ? ",
+                signupLinkText: "Inscrivez-vous",
+                welcomeMessage: "Bienvenue, ",
+            },
+            kinyarwanda: {
+                formTitle: "Injira",
+                emailLabel: "Imeyili",
+                passwordLabel: "Umubare w'ibanga",
+                submitButtonText: "Injira",
+                languageLabel: "Hitamo ururimi",
+                forgotPasswordText: "Wibagiwe ikibazo cy'ubutumwa? ",
+                forgotPasswordLink: "Wibagiwe ikibazo cy'ubutumwa",
+                noAccountText: "Nta konti ufite? ",
+                signupLinkText: "Iyihe konti ushaka?",
+                welcomeMessage: "Murakaza neza, ",
+            }
+        };
+        for (const key in translations[selectedLanguage]) {
+            if (translations[selectedLanguage].hasOwnProperty(key)) {
+                const element = document.querySelector(`[data-i18n="${key}"]`);
+                if (element) {
+                    element.textContent = translations[selectedLanguage][key];
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
